@@ -44,7 +44,6 @@ docker_path=`which nvidia-docker`
 git_path=`which git`
 git_min_version='1.8.0'
 git_rec_version='1.8.0'
-se_policy='--cap-add SYS_ADMIN --security-opt seccomp=unconfined'
 
 if [ "${SUPERVISED}" = "true" ]; then
   restart_policy="--restart=no"
@@ -258,7 +257,7 @@ run_stop() {
 
 set_volumes() {
   home_addr=`echo ~`
-  volumes="-v${home_addr}:/data"
+  volumes="-v${home_addr}:/MIUN"
 }
 
 set_run_image() {
@@ -300,7 +299,7 @@ run_start() {
 
   set -x
   $docker_path run --shm-size=512m $attach_on_run $restart_policy \
-    -e DOCKER_HOST_IP="$docker_ip" --name $config -t $volumes $mac_address $user_args $se_policy \
+    -e DOCKER_HOST_IP="$docker_ip" --name $config -t $volumes $mac_address $user_args \
     $run_image $boot_command
 
    exit 0
