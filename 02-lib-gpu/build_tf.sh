@@ -16,16 +16,14 @@ export TF_ROOT=/tensorflow
 cd $TF_ROOT
 
 # Python path options
-export PYTHON_BIN_PATH=$(which python)
+export PYTHON_BIN_PATH=$(which python2)
 export PYTHON_LIB_PATH="$($PYTHON_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
-export PYTHON3_BIN_PATH=$(which python3)
-export PYTHON3_LIB_PATH="$($PYTHON3_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
 export PYTHONPATH=${TF_ROOT}/lib
 export PYTHON_ARG=${TF_ROOT}/lib
 
 # Compilation parameters
 export CUDA_TOOLKIT_PATH=/usr/local/cuda
-export CUDNN_INSTALL_PATH=/usr/lib/x86_64-linux-gnu
+export CUDNN_INSTALL_PATH=/usr/local/cuda
 export TF_CUDA_VERSION="$CUDA_VERSION"
 export TF_CUDNN_VERSION="$CUDNN_VERSION"
 export TF_NCCL_VERSION=1.3
@@ -72,3 +70,19 @@ bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name 
 # Fix wheel folder permissions
 chmod -R 777 /wheels/
 
+# Complication for python 3
+# export PYTHON_BIN_PATH=$(which python3)
+# export PYTHON_LIB_PATH="$($PYTHON_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
+
+# ./configure
+
+# bazel build --config=opt \
+#             --config=cuda \
+#             --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
+#             //tensorflow/tools/pip_package:build_pip_package
+
+# PROJECT_NAME="tensorflow_gpu_cuda_${TF_CUDA_VERSION}_cudnn_${TF_CUDNN_VERSION}"
+# bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name $PROJECT_NAME
+
+# # Fix wheel folder permissions
+# chmod -R 777 /wheels/
