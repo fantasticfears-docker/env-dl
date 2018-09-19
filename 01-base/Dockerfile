@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dlbase
 # VERSION:  0.10.2
-FROM nvidia/cuda:9.2-devel-ubuntu18.04
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
