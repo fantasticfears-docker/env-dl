@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  0.10.0
+# VERSION:  0.10.1
 FROM nvidia/cuda:9.2-cudnn7-runtime-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -22,8 +22,9 @@ RUN apt-get install -y software-properties-common \
 		clang \
 		zsh-syntax-highlighting \
 		openjdk-8-jdk \
-        sudo \
+	        sudo \
 		bc \
+		nvidia-cuda-toolkit \
 		cmake \
 		curl \
 		g++ \
@@ -36,7 +37,7 @@ RUN apt-get install -y software-properties-common \
 		libjpeg-dev \
 		libopenblas-dev \
 		libwebp-dev \
-        libblas-dev \
+		libblas-dev \
 		libjpeg-dev \
 		libwebp-dev \
 		libpng-dev \
@@ -51,17 +52,6 @@ RUN apt-get install -y software-properties-common \
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 RUN apt-get upgrade -y
-
-# RUN echo "building latest python tools"
-
-#RUN add-apt-repository ppa:deadsnakes/ppa && \
-#    apt-get update && \
-#    apt-get -y install python3.6 && \
-#	rm -rf /usr/bin/python3 && \
-#	ln -s /usr/bin/python3.6 /usr/bin/python3 && \
-#	apt-get clean && \
-#	apt-get autoremove && \
-#	rm -rf /var/lib/apt/lists/*
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 RUN curl https://bootstrap.pypa.io/get-pip.py | python2
