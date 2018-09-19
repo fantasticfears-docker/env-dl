@@ -50,7 +50,6 @@ RUN apt-get install -y software-properties-common \
 	rm -rf /var/lib/apt/lists/*
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
-RUN apt-get upgrade -y
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 RUN curl https://bootstrap.pypa.io/get-pip.py | python2
