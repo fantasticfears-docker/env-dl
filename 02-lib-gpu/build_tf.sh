@@ -13,7 +13,7 @@ cd /
 rm -fr tensorflow/
 git clone --depth 1 --branch v$TENSORFLOW_VERSION "https://github.com/tensorflow/tensorflow.git"
 
-TF_ROOT=/tensorflow
+export TF_ROOT=/tensorflow
 cd $TF_ROOT
 
 # Python path options
@@ -26,7 +26,7 @@ export PYTHON_ARG=${TF_ROOT}/lib
 
 # Compilation parameters
 export CUDA_TOOLKIT_PATH=/usr/local/cuda
-export CUDNN_INSTALL_PATH=/usr/local/cuda
+export CUDNN_INSTALL_PATH=/usr/lib/x86_64-linux-gnu
 export TF_CUDA_VERSION="$CUDA_VERSION"
 export TF_CUDNN_VERSION="$CUDNN_VERSION"
 export TF_NCCL_VERSION=1.3
@@ -51,7 +51,7 @@ export TF_NEED_OPENCL_SYCL=0
 export TF_SET_ANDROID_WORKSPACE=0
 export TF_NEED_AWS=0
 
-export LD_LIBRARY_PATH="$CUDA_TOOLKIT_PATH/lib64:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="$CUDA_TOOLKIT_PATH/lib64:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 ldconfig
 
 # Compiler options
