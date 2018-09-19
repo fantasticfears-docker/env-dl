@@ -1,8 +1,8 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  0.9
-FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
+# VERSION:  0.10
+FROM nvidia/cuda:9.2-cudnn7-runtime-ubuntu18.04
 
-MAINTAINER Erick Guan <xigu1500@student.miun.se>
+MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 RUN apt-get update
 RUN apt-get install -y curl vim build-essential git wget locales
@@ -16,9 +16,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
 # Install some dependencies
 RUN apt-get install -y software-properties-common \
+		zip \
 		zsh \
 		autojump \
+		clang \
 		zsh-syntax-highlighting \
+		openjdk-8-jdk \
         sudo \
 		bc \
 		cmake \
@@ -26,7 +29,10 @@ RUN apt-get install -y software-properties-common \
 		g++ \
 		libjemalloc1 \
 		python3-dev \
+		zlib1g-dev \
 		libffi-dev \
+		libfreetype6-dev \
+		pkg-config \
 		libjpeg-dev \
 		libopenblas-dev \
 		libwebp-dev \
@@ -46,16 +52,16 @@ RUN apt-get install -y software-properties-common \
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 RUN apt-get upgrade -y
 
-RUN echo "building latest python tools"
+# RUN echo "building latest python tools"
 
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get -y install python3.6 && \
-	rm -rf /usr/bin/python3 && \
-	ln -s /usr/bin/python3.6 /usr/bin/python3 && \
-	apt-get clean && \
-	apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/*
+#RUN add-apt-repository ppa:deadsnakes/ppa && \
+#    apt-get update && \
+#    apt-get -y install python3.6 && \
+#	rm -rf /usr/bin/python3 && \
+#	ln -s /usr/bin/python3.6 /usr/bin/python3 && \
+#	apt-get clean && \
+#	apt-get autoremove && \
+#	rm -rf /var/lib/apt/lists/*
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 RUN curl https://bootstrap.pypa.io/get-pip.py | python2
