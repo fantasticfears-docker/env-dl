@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  0.10.1
-FROM nvidia/cuda:9.2-cudnn7-runtime-ubuntu18.04
+# VERSION:  0.10.2
+FROM nvidia/cuda:9.2-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
@@ -24,7 +24,6 @@ RUN apt-get install -y software-properties-common \
 		openjdk-8-jdk \
 	        sudo \
 		bc \
-		nvidia-cuda-toolkit \
 		cmake \
 		curl \
 		g++ \

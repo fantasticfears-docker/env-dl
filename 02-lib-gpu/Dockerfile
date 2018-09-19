@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dllib-gpu
 # VERSION:  0.5.0
-FROM fantasticfears/dlbase:0.10.1
+FROM fantasticfears/dlbase:0.10.2
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
@@ -16,7 +16,6 @@ COPY bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh.sha256 bazel-${BAZEL_VERSI
 RUN shasum -a 256 -c bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh.sha256
 RUN chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
-RUN export PATH="$PATH:$HOME/bin"
 
 # Install Tensorflow
 COPY build_tf.sh /build_tf.sh

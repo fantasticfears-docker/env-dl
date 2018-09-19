@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-
 gcc --version
 
 # Compile TensorFlow
@@ -21,7 +20,7 @@ export PYTHON_BIN_PATH=$(which python)
 export PYTHON_LIB_PATH="$($PYTHON_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
 export PYTHON3_BIN_PATH=$(which python3)
 export PYTHON3_LIB_PATH="$($PYTHON3_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
-export PYTHON_PATH=${TF_ROOT}/lib
+export PYTHONPATH=${TF_ROOT}/lib
 export PYTHON_ARG=${TF_ROOT}/lib
 
 # Compilation parameters
@@ -33,7 +32,7 @@ export TF_NCCL_VERSION=1.3
 export TF_NEED_CUDA=1
 export TF_NEED_GCP=1
 export TF_NEED_TENSORRT=0
-export TF_CUDA_COMPUTE_CAPABILITIES=5.2,3.5
+export TF_CUDA_COMPUTE_CAPABILITIES=6.1
 export TF_NEED_HDFS=1
 export TF_NEED_OPENCL=0
 export TF_NEED_JEMALLOC=1  # Need to be disabled on CentOS 6.6
@@ -51,6 +50,7 @@ export TF_NEED_OPENCL_SYCL=0
 export TF_SET_ANDROID_WORKSPACE=0
 export TF_NEED_AWS=0
 
+export PATH="/usr/bin:${HOME}/bin:${PATH}"
 export LD_LIBRARY_PATH="$CUDA_TOOLKIT_PATH/lib64:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 ldconfig
 
