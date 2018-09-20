@@ -1,8 +1,8 @@
 # NAME:     fantasticfears/dl-zsh
-# VERSION:  0.5.0
+# VERSION:  0.5.1
 FROM fantasticfears/dllib-gpu:0.5
 
-MAINTAINER Erick Guan <xigu1500@student.miun.se>
+MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 RUN echo "Configure oh-my-zsh"
 RUN bash -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
