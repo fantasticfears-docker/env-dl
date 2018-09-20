@@ -53,7 +53,7 @@ export TF_NEED_AWS=0
 export PATH="/usr/bin:${HOME}/bin:${PATH}"
 export LD_LIBRARY_PATH="/usr/local/lib:$CUDA_TOOLKIT_PATH/lib64:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 echo "/usr/local/cuda/targets/x86_64-linux/lib/stubs" > /etc/ld.so.conf.d/cuda-92-stubs.conf
-ldconfig 
+ldconfig
 echo $LD_LIBRARY_PATH
 
 # Compiler options
@@ -76,11 +76,14 @@ bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name 
 
 # Fix wheel folder permissions
 chmod -R 777 /wheels/
-pip2 --no-cache-dir install --upgrade /wheels/*.whl
+pip3 --no-cache-dir install --upgrade /wheels/*.whl
+rm -rf /wheels
 
-# Complication for python 3
-export PYTHON_BIN_PATH=$(which python3)
+# Complication for python 2
+export PYTHON_BIN_PATH=$(which python2)
 export PYTHON_LIB_PATH="$($PYTHON_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
+
+bazel clean
 
 ./configure
 
@@ -89,13 +92,12 @@ bazel build --config=opt \
             --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
             //tensorflow/tools/pip_package:build_pip_package
 
-PROJECT_NAME="tensorflow_gpu_cuda_${TF_CUDA_VERSION}_cudnn_${TF_CUDNN_VERSION}"
 bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name $PROJECT_NAME
 rm -rf /usr/local/cuda/lib64/stubs/libcuda.so.1
 rm -rf /etc/ld.so.conf.d/cuda-92-stubs.conf
 
 # # Fix wheel folder permissions
 chmod -R 777 /wheels/
-pip3 --no-cache-dir install --upgrade /wheels/*.whl
+pip2 --no-cache-dir install --upgrade /wheels/*.whl
 rm -rf /tensorflow
 rm -rf /wheels

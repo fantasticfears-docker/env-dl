@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dl-zsh
-# VERSION:  0.4
-FROM fantasticfears/dllib:0.4
+# VERSION:  0.5.0
+FROM fantasticfears/dllib-gpu:0.5
 
 MAINTAINER Erick Guan <xigu1500@student.miun.se>
 
