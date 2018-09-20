@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  0.10.2
+# VERSION:  0.10.3
 FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -75,6 +75,7 @@ RUN pip2 --no-cache-dir install \
 		Pillow \
 		pygments \
 		six \
+		mock \
 		sphinx \
 		wheel \
 		zmq
@@ -97,6 +98,7 @@ RUN pip3 --no-cache-dir install \
 		Pillow \
 		pygments \
 		six \
+		mock \
 		sphinx \
 		wheel \
 		zmq

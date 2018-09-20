@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dllib-gpu
 # VERSION:  0.5.0
-FROM fantasticfears/dlbase:0.10.2
+FROM fantasticfears/dlbase:0.10.3
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
@@ -21,6 +21,8 @@ RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
 COPY build_tf.sh /build_tf.sh
 RUN chmod 777 /build_tf.sh
 RUN bash /build_tf.sh
+
+RUN rm -rf /bazel* && rm -rf /build_tf.sh && rm -rf ~/bin
 
 # Install Torch
 RUN pip3 --no-cache-dir install http://download.pytorch.org/whl/cu92/torch-${TORCH_VERSION}-cp36-cp36m-linux_x86_64.whl
