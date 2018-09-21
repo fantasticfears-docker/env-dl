@@ -1,4 +1,4 @@
-# NAME:     fantasticfears/dl-zsh
+# NAME:     fantasticfears/dlzsh
 # VERSION:  0.5.1
 FROM fantasticfears/dllib-gpu:0.5
 
