@@ -46,7 +46,7 @@ cd "$(dirname "$0")"
 docker_min_version='17.03.1'
 docker_rec_version='17.06.2'
 image=fantasticfears/dlzsh:latest
-docker_path=`which nvidia-docker`
+docker_path=`command -v nvidia-docker || command -v docker`
 git_path=`which git`
 git_min_version='1.8.0'
 git_rec_version='1.8.0'
