@@ -20,7 +20,8 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
     chmod 0600 ~/.ssh/authorized_keys
 
 # Hadoop
-RUN curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
+RUN cd / && \
+    curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
     tar xvf hadoop-2.9.1.tar.gz && \
     mv hadoop-2.9.1 hadoop && \
     rm -rf hadoop-2.9.1.tar.gz && \
