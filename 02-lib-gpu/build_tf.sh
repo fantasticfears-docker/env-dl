@@ -101,3 +101,4 @@ chmod -R 777 /wheels/
 pip2 --no-cache-dir install --upgrade /wheels/*.whl
 rm -rf /tensorflow
 rm -rf /wheels
+rm -rf ~/.cache

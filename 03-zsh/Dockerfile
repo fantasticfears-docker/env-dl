@@ -2,10 +2,10 @@
 # VERSION:  0.6.0
 FROM fantasticfears/dllib-gpu:0.5
 
-MAINTAINER Erick Guan <xigu1500@student.miun.se>
+MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 RUN echo "Configure oh-my-zsh"
-RUN bash -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | zsh || true
 
 # Set up notebook config
 COPY jupyter_notebook_config.py /root/.jupyter/

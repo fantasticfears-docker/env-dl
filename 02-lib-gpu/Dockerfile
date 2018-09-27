@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  0.5.1
+# VERSION:  0.5.2
 FROM fantasticfears/dlbase:0.10
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
