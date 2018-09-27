@@ -20,10 +20,10 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
     chmod 0600 ~/.ssh/authorized_keys
 
 # Hadoop
-RUN curl -O http://apache.mirrors.spacedump.net/hadoop/common/hadoop-3.1.1/hadoop-3.1.1.tar.gz && \
-    tar xvf hadoop-3.1.1.tar.gz && \
-    mv hadoop-3.1.1 hadoop && \
-    rm -rf hadoop-3.1.1.tar.gz && \
+RUN curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
+    tar xvf hadoop-2.9.1.tar.gz && \
+    mv hadoop-2.9.1 hadoop && \
+    rm -rf hadoop-2.9.1.tar.gz && \
     cd hadoop
 RUN echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh
 RUN echo "<configuration> \
