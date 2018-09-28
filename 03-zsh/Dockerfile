@@ -10,6 +10,12 @@ RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/instal
 # Set up notebook config
 COPY jupyter_notebook_config.py /root/.jupyter/
 
+RUN cd / && \
+    curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
+    tar xvf hadoop-2.9.1.tar.gz && \
+    mv hadoop-2.9.1 hadoop && \
+    rm -rf hadoop-2.9.1.tar.gz
+
 # SSH server for hadoop
 RUN apt-get update && apt-get install -y openssh-server	&& \
 	apt-get clean && \
@@ -25,11 +31,6 @@ RUN apt-get update && apt-get install -y openssh-server	&& \
         /etc/init.d/ssh start
 
 # Hadoop
-RUN cd / && \
-    curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
-    tar xvf hadoop-2.9.1.tar.gz && \
-    mv hadoop-2.9.1 hadoop && \
-    rm -rf hadoop-2.9.1.tar.gz
 RUN cd /hadoop && echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh && \
     echo "<configuration> \
     <property> \
