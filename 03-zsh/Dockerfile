@@ -14,38 +14,42 @@ COPY jupyter_notebook_config.py /root/.jupyter/
 RUN apt-get update && apt-get install -y openssh-server	&& \
 	apt-get clean && \
 	apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/*
-RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
-    chmod 0600 ~/.ssh/authorized_keys
+	rm -rf /var/lib/apt/lists/* && \
+        mkdir /var/run/sshd && \
+	echo 'root:screencast' | chpasswd && \
+        sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+        sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
+        cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+        chmod 0600 ~/.ssh/authorized_keys && \
+        /etc/init.d/ssh start
 
 # Hadoop
 RUN cd / && \
     curl -OL http://mirror.vorboss.net/apache/hadoop/common/stable/hadoop-2.9.1.tar.gz && \
     tar xvf hadoop-2.9.1.tar.gz && \
     mv hadoop-2.9.1 hadoop && \
-    rm -rf hadoop-2.9.1.tar.gz && \
-    cd hadoop
-RUN echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh
-RUN echo "<configuration> \
+    rm -rf hadoop-2.9.1.tar.gz
+RUN cd /hadoop && echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh && \
+    echo "<configuration> \
     <property> \
         <name>fs.defaultFS</name> \
         <value>hdfs://localhost:9000</value> \
     </property> \
-</configuration>" > etc/hadoop/core-site.xml
-RUN echo "<configuration> \
+</configuration>" > etc/hadoop/core-site.xml && \
+   echo "<configuration> \
     <property> \
         <name>dfs.replication</name> \
         <value>1</value> \
     </property> \
-</configuration>" > etc/hadoop/hdfs-site.xml
-RUN bin/hdfs namenode -format
+</configuration>" > etc/hadoop/hdfs-site.xml && \
+    bin/hdfs namenode -format
 ARG HDFS_NAMENODE_USER="root"
 ARG HDFS_DATANODE_USER="root"
 ARG HDFS_SECONDARYNAMENODE_USER="root"
 ARG YARN_RESOURCEMANAGER_USER="root"
 ARG YARN_NODEMANAGER_USER="root"
-RUN sbin/start-dfs.sh && \
+RUN cd /hadoop && sbin/start-dfs.sh && \
     bin/hdfs dfs -mkdir /user && \
     bin/hdfs dfs -mkdir /user/erickg
 
