@@ -16,6 +16,8 @@ RUN cd / && \
     mv hadoop-2.9.1 hadoop && \
     rm -rf hadoop-2.9.1.tar.gz
 
+ADD ssh_config /root/.ssh/config
+
 # SSH server for hadoop
 RUN apt-get update && apt-get install -y openssh-server	&& \
 	apt-get clean && \
@@ -28,7 +30,9 @@ RUN apt-get update && apt-get install -y openssh-server	&& \
         ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
         cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
         chmod 0600 ~/.ssh/authorized_keys && \
-        /etc/init.d/ssh start
+        chmod 600 /root/.ssh/config && \
+        chown root:root /root/.ssh/config && \
+        /usr/sbin/ssh -D
 
 # Hadoop
 RUN cd /hadoop && echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh && \
