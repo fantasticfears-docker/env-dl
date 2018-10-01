@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y openssh-server	&& \
         chmod 0600 ~/.ssh/authorized_keys && \
         chmod 600 /root/.ssh/config && \
         chown root:root /root/.ssh/config && \
-        /usr/sbin/ssh -D
+        service sshd start
 
 # Hadoop
 RUN cd /hadoop && echo "export JAVA_HOME=/usr/lib/jvm/default-java/" >> etc/hadoop/hadoop-env.sh && \
