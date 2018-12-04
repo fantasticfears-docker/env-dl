@@ -1,11 +1,11 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  0.5.2
-FROM fantasticfears/dlbase:0.10
+# VERSION:  0.6.0
+FROM fantasticfears/dlbase:1.0
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 ARG BAZEL_VERSION=0.17.1
-ARG TENSORFLOW_VERSION=1.10.1
+ARG TENSORFLOW_VERSION=1.12.0
 ARG TORCH_VERSION=0.4.1
 
 WORKDIR /
@@ -29,3 +29,11 @@ RUN pip3 --no-cache-dir install http://download.pytorch.org/whl/cu92/torch-${TOR
 RUN pip3 --no-cache-dir install torchvision
 RUN pip2 --no-cache-dir install http://download.pytorch.org/whl/cu92/torch-${TORCH_VERSION}-cp27-cp27mu-linux_x86_64.whl
 RUN pip2 --no-cache-dir install torchvision
+
+# Install Keras
+
+RUN pip3 --no-cache-dir install keras
+
+# Install Gym
+RUN pip3 --no-cache-dir install 'mujoco-py<1.50.2,>=1.50.1'
+RUN pip3 --no-cache-dir install 'gym[all]'
