@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  0.10.3
+# VERSION:  1.0.0
 FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -22,7 +22,7 @@ RUN apt-get install -y software-properties-common \
 		clang \
 		zsh-syntax-highlighting \
 		openjdk-8-jdk \
-	        sudo \
+        sudo \
 		bc \
 		cmake \
 		curl \
@@ -44,6 +44,15 @@ RUN apt-get install -y software-properties-common \
 		default-jdk \
 		python \
 		python2.7-dev \
+		swig \
+		python-pyglet \
+		python3-opengl \
+		libboost-all-dev \
+		libsdl2-dev \
+		libosmesa6-dev \
+		patchelf \
+		ffmpeg \
+		xvfb \
 		&& \
 	apt-get clean && \
 	apt-get autoremove && \
