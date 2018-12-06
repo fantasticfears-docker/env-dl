@@ -17,6 +17,14 @@ RUN shasum -a 256 -c bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh.sha256
 RUN chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
 
+# Install TF dependency
+RUN pip2 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
+RUN pip3 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
+RUN pip2 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
+RUN pip3 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
+RUN pip2 --no-cache-dir install h5py==2.8.0 --no-deps
+RUN pip3 --no-cache-dir install h5py==2.8.0 --no-deps
+
 # Install Tensorflow
 COPY build_tf.sh /build_tf.sh
 RUN chmod 777 /build_tf.sh
