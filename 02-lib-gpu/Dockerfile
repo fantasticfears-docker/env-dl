@@ -48,5 +48,5 @@ RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
     unzip mjpro150_linux.zip -d /root/.mujoco/mjpro150
 COPY mjkey.txt /root/.mujoco/mjkey.txt
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mjpro150/bin" >> /root/.bashrc
-RUN pip3 --no-cache-dir install 'mujoco-py<1.50.2,>=1.50.1'
-RUN pip3 --no-cache-dir install 'gym[all]'
+RUN bash -c "pip3 --no-cache-dir install 'mujoco-py<1.50.2,>=1.50.1'"
+RUN bash -c "pip3 --no-cache-dir install 'gym[all]'"
