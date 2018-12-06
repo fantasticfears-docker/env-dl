@@ -45,7 +45,7 @@ RUN pip3 --no-cache-dir install keras
 # Install Gym
 RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
     mkdir -p ~/.mujoco/ && \
-    unzip mjpro150_linux.zip -d ~/.mujoco/mjpro150
-COPY mjkey.txt ~/.mujoco/mjkey.txt
+    unzip mjpro150_linux.zip -d /root/.mujoco/mjpro150
+COPY mjkey.txt /root/.mujoco/mjkey.txt
 RUN pip3 --no-cache-dir install 'mujoco-py<1.50.2,>=1.50.1'
 RUN pip3 --no-cache-dir install 'gym[all]'
