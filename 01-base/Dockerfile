@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  1.0.0
+# VERSION:  1.1.0
 FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -20,6 +20,12 @@ RUN apt-get install -y software-properties-common \
 		zsh \
 		autojump \
 		clang \
+		autoconf \
+		automake \
+		autotools-dev \
+		python3-dev \
+		libtool \
+		make \
 		zsh-syntax-highlighting \
 		openjdk-8-jdk \
         sudo \
