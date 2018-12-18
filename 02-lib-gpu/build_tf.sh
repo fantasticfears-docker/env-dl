@@ -78,27 +78,3 @@ bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name 
 chmod -R 777 /wheels/
 pip3 --no-cache-dir install --upgrade /wheels/*.whl
 rm -rf /wheels
-
-# Complication for python 2
-export PYTHON_BIN_PATH=$(which python2)
-export PYTHON_LIB_PATH="$($PYTHON_BIN_PATH -c 'import site; print(site.getsitepackages()[0])')"
-
-bazel clean
-
-./configure
-
-bazel build --config=opt \
-            --config=cuda \
-            --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
-            //tensorflow/tools/pip_package:build_pip_package
-
-bazel-bin/tensorflow/tools/pip_package/build_pip_package /wheels --project_name $PROJECT_NAME
-rm -rf /usr/local/cuda/lib64/stubs/libcuda.so.1
-rm -rf /etc/ld.so.conf.d/cuda-92-stubs.conf
-
-# # Fix wheel folder permissions
-chmod -R 777 /wheels/
-pip2 --no-cache-dir install --upgrade /wheels/*.whl
-rm -rf /tensorflow
-rm -rf /wheels
-rm -rf ~/.cache
