@@ -48,6 +48,11 @@ RUN git clone https://github.com/uber/pyflame.git && \
     cd .. && \
     rm -rf pyflame
 
+# Install flamegraph.pl
+RUN wget https://raw.githubusercontent.com/brendangregg/FlameGraph/master/flamegraph.pl && \
+    chmod 764 flamegraph.pl && \
+    mv flamegraph.pl /usr/bin/flamegraph.pl
+
 # Install Gym
 # RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
 #     mkdir -p ~/.mujoco/ && \
