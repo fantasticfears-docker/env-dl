@@ -67,33 +67,9 @@ RUN apt-get install -y software-properties-common \
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3
-RUN curl https://bootstrap.pypa.io/get-pip.py | python2
 
 # Add SNI support to Python
 # Install other useful Python packages using pip
-RUN pip2 --no-cache-dir install \
-		numpy \
-		scipy \
-		nose \
-		h5py \
-		scikit-image \
-		matplotlib \
-		pandas \
-		sklearn \
-		sympy \
-		pipenv \
-		pyopenssl \
-		ndg-httpsclient \
-		pyasn1 \
-		Cython \
-		jupyterlab \
-		Pillow \
-		pygments \
-		six \
-		mock \
-		sphinx \
-		wheel \
-		zmq
 RUN pip3 --no-cache-dir install \
 		numpy \
 		scipy \

@@ -19,11 +19,8 @@ RUN chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
 
 # Install TF dependency
-RUN pip2 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
 RUN pip3 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
-RUN pip2 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
 RUN pip3 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
-RUN pip2 --no-cache-dir install h5py==2.8.0 --no-deps
 RUN pip3 --no-cache-dir install h5py==2.8.0 --no-deps
 
 # Install Tensorflow
@@ -35,17 +32,15 @@ RUN rm -rf /bazel* && rm -rf /build_tf.sh && rm -rf ~/bin
 
 # Install Torch
 RUN pip3 --no-cache-dir install torch torchvision
-RUN pip2 --no-cache-dir install torch torchvision
 
 # Install Keras
 
 RUN pip3 --no-cache-dir install keras
-RUN pip2 --no-cache-dir install keras
 
 # Install Pyflame
 RUN git clone https://github.com/uber/pyflame.git && \
     cd pyflame && \
-    git checkout -f tags/v${PYFLAME_VERSION}
+    git checkout -f tags/v${PYFLAME_VERSION} && \
     ./autogen.sh && \
     ./configure && \
     make && \
