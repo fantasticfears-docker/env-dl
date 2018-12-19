@@ -14,7 +14,7 @@ def push_container(dir):
     print_command(cmd)
     call(cmd)
 
-    latest_tag = gen_tag(metadata[name], 'latest')
+    latest_tag = gen_tag(metadata['name'], 'latest')
     cmd = ["docker", "tag", tag_name, latest_tag]
     call(cmd)
 
