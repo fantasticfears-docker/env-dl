@@ -2,7 +2,7 @@
 import sys
 import os.path
 from subprocess import call
-from build_container import gen_tag, read_metadata, print_command
+from build_container import gen_tag, read_metadata, pretty_call
 
 def push_container(dir):
     filename = os.path.join(dir, "Dockerfile")
@@ -10,13 +10,12 @@ def push_container(dir):
 
     tag_name = gen_tag(metadata['name'], metadata['version'])
     minor_tag = gen_tag(metadata['name'], metadata['minor_version'])
-    cmd = ["docker", "tag", tag_name, minor_tag]
-    print_command(cmd)
-    call(cmd)
+    cmd = ["docker", "push", tag_name, minor_tag]
+    pretty_call(cmd)
 
-    latest_tag = gen_tag(metadata['name'], 'latest')
-    cmd = ["docker", "tag", tag_name, latest_tag]
-    call(cmd)
+    latest_tag = gen_tag(metadata[name], 'latest')
+    cmd = ["docker", "push", tag_name, latest_tag]
+    pretty_call(cmd)
 
 if __name__ == '__main__':
     push_container(sys.argv[1])

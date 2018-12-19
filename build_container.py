@@ -29,24 +29,25 @@ def gen_tag(tag, version):
 def print_command(cmd_args):
     print("> " + " ".join(cmd_args))
 
+def pretty_call(cmd_args):
+    print_command(cmd_args)
+    call(cmd_args)
+
 def build_container(dir):
     filename = os.path.join(dir, "Dockerfile")
     metadata = read_metadata(filename)
     print(metadata)
     tag_name = gen_tag(metadata['name'], metadata['version'])
     cmd = ["docker", "build", "-t", tag_name, "-f", filename, dir]
-    print_command(cmd)
-    call(cmd)
+    pretty_call(cmd)
 
     minor_tag = gen_tag(metadata['name'], metadata['minor_version'])
     cmd = ["docker", "tag", tag_name, minor_tag]
-    print_command(cmd)
-    call(cmd)
+    pretty_call(cmd)
 
     latest_tag = gen_tag(metadata['name'], 'latest')
     cmd = ["docker", "tag", tag_name, latest_tag]
-    print_command(cmd)
-    call(cmd)
+    pretty_call(cmd)
 
 if __name__ == '__main__':
     build_container(sys.argv[1])
