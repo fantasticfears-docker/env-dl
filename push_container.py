@@ -2,7 +2,7 @@
 import sys
 import os.path
 from subprocess import call
-from build_container import gen_tag, push_container, print_command
+from build_container import gen_tag, read_metadata, print_command
 
 def push_container(dir):
     filename = os.path.join(dir, "Dockerfile")
