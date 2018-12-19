@@ -9,12 +9,15 @@ def push_container(dir):
     metadata = read_metadata(filename)
 
     tag_name = gen_tag(metadata['name'], metadata['version'])
-    minor_tag = gen_tag(metadata['name'], metadata['minor_version'])
-    cmd = ["docker", "push", tag_name, minor_tag]
+    cmd = ["docker", "push", tag_name]
     pretty_call(cmd)
 
-    latest_tag = gen_tag(metadata[name], 'latest')
-    cmd = ["docker", "push", tag_name, latest_tag]
+    minor_tag = gen_tag(metadata['name'], metadata['minor_version'])
+    cmd = ["docker", "push", minor_tag]
+    pretty_call(cmd)
+
+    latest_tag = gen_tag(metadata['name'], 'latest')
+    cmd = ["docker", "push", latest_tag]
     pretty_call(cmd)
 
 if __name__ == '__main__':
