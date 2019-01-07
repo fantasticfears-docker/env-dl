@@ -302,7 +302,7 @@ run_start() {
   set -x
 
   $docker_path run --shm-size=4096m $attach_on_run $restart_policy \
-    -e DOCKER_HOST_IP="$docker_ip" --name $config -t $volumes $user_args \
+    -e DOCKER_HOST_IP="$docker_ip" --name $config --privileged -t $volumes $user_args \
     $run_image $boot_command
    exit 0
 
