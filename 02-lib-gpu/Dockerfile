@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  0.6.0
+# VERSION:  0.7.0
 FROM fantasticfears/dlbase:1.1
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -52,6 +52,16 @@ RUN git clone https://github.com/uber/pyflame.git && \
 RUN wget https://raw.githubusercontent.com/brendangregg/FlameGraph/master/flamegraph.pl && \
     chmod 764 flamegraph.pl && \
     mv flamegraph.pl /usr/bin/flamegraph.pl
+
+# Install Spacy
+
+RUN pip3 --no-cache-dir install spacy[cuda92] && \
+    python3 -m spacy download en && \
+    python3 -m spacy download xx
+
+# Install fastai
+
+RUN pip3 --no-cache-dir install fastai
 
 # Install Gym
 # RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
