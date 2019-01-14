@@ -15,6 +15,14 @@ COPY jupyter_notebook_config.py /root/.jupyter/
 # Jupyter has issues with being run directly: https://github.com/ipython/ipython/issues/7062
 COPY run_jupyter.sh /root/
 RUN chmod +x /root/run_jupyter.sh
+
+# CLI tools
+COPY alias.sh /root/.alias
+COPY git_config.txt /root
+RUN echo "source ~/.alias" >> ~/.zshrc && \
+    cat /root/git_congit.txt >> .gitconfig && \
+    rm -f /root/git_config.txt
+
 RUN echo `date +%Y%m%d` > /BUILD_DATE
 
 # Expose Ports for TensorBoard (6006), Ipython (8888)

@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  1.1.0
+# VERSION:  1.2.0
 FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -59,6 +59,8 @@ RUN apt-get install -y software-properties-common \
 		patchelf \
 		ffmpeg \
 		xvfb \
+		htop \
+		ncdu \
 		&& \
 	apt-get clean && \
 	apt-get autoremove && \
@@ -93,3 +95,32 @@ RUN pip3 --no-cache-dir install \
 		sphinx \
 		wheel \
 		zmq
+
+# Install new CLI tools
+ARG BAT_VERSION=0.9.0
+ARG PRETTY_PING_VERSION=1.0.1
+ARG FZF_VERSION=0.17.5
+ARG DIFF_SO_FANCY_VERSION=1.2.0
+ARG FD_VERSION=7.2.0
+ARG NODE_VERSION=11
+
+RUN mkdir -p /root/tmp && \
+	cd /root/tmp && \
+	curl -O -L - https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb && \
+	dpkg -i bat_${BAT_VERSION}_amd64.deb && \
+	curl -O -L - https://github.co/denilsonsa/prettyping/archive/v${PRETTY_PING_VERSION}.tar.gz && \
+   	tar xzf v${PRETTY_PING_VERSION}.tar.gz && \
+	cd prettyping-${PRETTY_PING_VERSION} && \
+	chmod +x prettyping && \
+	mv prettyping /usr/bin/prettyping && \
+	cd .. && \
+	curl -O -L - https://github.com/junegunn/fzf/archive/${FZF_VERSION}.tar.gz && \
+	tar xzf ${FZF_VERSION} && \
+	./fzf-${FZF_VERSION}/install && \
+	curl -O -L - https://github.com/so-fancy/diff-so-fancy/archive/v${DIFF_SO_FANCY_VERSION}.tar.gz && \
+	tar xzf v${DIFF_SO_FANCY_VERSION}.tar.gz && \
+	cp diff-so-fancy-${DIFF_SO_FANCY_VERSION}/diff-so-fance /usr/bin && \
+	curl -O -L - https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_${FD_VERSION}_amd64.deb && \
+	dpkg -i fd_${FD_VERSION}_amd64.deb && \
+	snap install node --classic --channel=${NODE_VERSION} && \
+	npm install -g tldr jq
