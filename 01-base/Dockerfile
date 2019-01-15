@@ -120,8 +120,9 @@ RUN mkdir -p /root/tmp && \
 	./fzf-${FZF_VERSION}/install && \
 	curl -O -L https://github.com/so-fancy/diff-so-fancy/archive/v${DIFF_SO_FANCY_VERSION}.tar.gz  && \
 	tar xzf v${DIFF_SO_FANCY_VERSION}.tar.gz && \
-	cp diff-so-fancy-${DIFF_SO_FANCY_VERSION}/diff-so-fance /usr/bin && \
+	cp diff-so-fancy-${DIFF_SO_FANCY_VERSION}/diff-so-fancy /usr/bin && \
 	curl -O -L https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_${FD_VERSION}_amd64.deb && \
 	dpkg -i fd_${FD_VERSION}_amd64.deb && \
 	snap install node --classic --channel=${NODE_VERSION} && \
-	npm install -g tldr jq
+	npm install -g tldr jq && \
+	rm -rf /root/tmp
