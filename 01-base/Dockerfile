@@ -15,7 +15,8 @@ RUN echo "Europe/Stockholm" > /etc/timezone
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
 # Install some dependencies
-RUN apt-get install -y software-properties-common \
+RUN apt-get update && \
+	apt-get install -y software-properties-common \
 		zip \
 		zsh \
 		autojump \
