@@ -17,10 +17,11 @@ COPY run_jupyter.sh /root/
 RUN chmod +x /root/run_jupyter.sh
 
 # CLI tools
-COPY alias.sh /root/.alias
-COPY git_config.txt /root
-RUN echo "source ~/.alias" >> ~/.zshrc && \
-    cat /root/git_congit.txt >> .gitconfig && \
+COPY alias.sh /root/
+COPY git_config.txt /root/
+RUN mv /root/alias.sh /root/.alias && \ 
+    echo "source ~/.alias" >> ~/.zshrc && \
+    cat /root/git_config.txt >> .gitconfig && \
     rm -f /root/git_config.txt
 
 RUN echo `date +%Y%m%d` > /BUILD_DATE
