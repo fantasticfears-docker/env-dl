@@ -116,7 +116,7 @@ RUN mkdir -p /root/tmp && \
 	mv prettyping /usr/bin/prettyping && \
 	cd .. && \
 	curl -O -L https://github.com/junegunn/fzf/archive/${FZF_VERSION}.tar.gz && \
-	tar xzf ${FZF_VERSION} && \
+	tar xzf ${FZF_VERSION}.tar.gz && \
 	./fzf-${FZF_VERSION}/install && \
 	curl -O -L https://github.com/so-fancy/diff-so-fancy/archive/v${DIFF_SO_FANCY_VERSION}.tar.gz && \
 	tar xzf v${DIFF_SO_FANCY_VERSION}.tar.gz && \
