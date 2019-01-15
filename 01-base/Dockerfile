@@ -123,6 +123,11 @@ RUN mkdir -p /root/tmp && \
 	cp diff-so-fancy-${DIFF_SO_FANCY_VERSION}/diff-so-fancy /usr/bin && \
 	curl -O -L https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_${FD_VERSION}_amd64.deb && \
 	dpkg -i fd_${FD_VERSION}_amd64.deb && \
-	snap install node --classic --channel=${NODE_VERSION} && \
+	curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | sudo -E bash - && \
+	apt-get update && \
+	apt-get install -y nodejs && \
 	npm install -g tldr jq && \
-	rm -rf /root/tmp
+	rm -rf /root/tmp && \
+	apt-get clean && \
+	apt-get autoremove && \
+	rm -rf /var/lib/apt/lists/*
