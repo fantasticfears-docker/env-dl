@@ -109,7 +109,7 @@ RUN mkdir -p /root/tmp && \
 	cd /root/tmp && \
 	curl -O -L https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb && \
 	dpkg -i bat_${BAT_VERSION}_amd64.deb && \
-	curl -O -L https://github.co/denilsonsa/prettyping/archive/v${PRETTY_PING_VERSION}.tar.gz && \
+	curl -O -L https://github.com/denilsonsa/prettyping/archive/v${PRETTY_PING_VERSION}.tar.gz && \
    	tar xzf v${PRETTY_PING_VERSION}.tar.gz && \
 	cd prettyping-${PRETTY_PING_VERSION} && \
 	chmod +x prettyping && \
