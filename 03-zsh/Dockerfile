@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlzsh
-# VERSION:  0.8.0
+# VERSION:  0.8.1
 FROM fantasticfears/dllib-gpu:0.8
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -22,7 +22,9 @@ COPY git_config.txt /root/
 RUN mv /root/alias.sh /root/.alias && \ 
     echo "source ~/.alias" >> ~/.zshrc && \
     cat /root/git_config.txt >> .gitconfig && \
-    rm -f /root/git_config.txt
+    rm -f /root/git_config.txt && \
+    tldr cd
+# Triger update on tldr
 
 RUN echo `date +%Y%m%d` > /BUILD_DATE
 
