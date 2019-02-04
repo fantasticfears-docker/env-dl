@@ -1,13 +1,14 @@
 # NAME:     fantasticfears/dlzsh
-# VERSION:  0.8.1
-FROM fantasticfears/dllib-gpu:0.8
+# VERSION:  0.9.0
+FROM fantasticfears/dllib-gpu:0.9
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 ENV CUDA_VISIBLE_DEVICES=0,1
 
 RUN echo "Configure oh-my-zsh"
-RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | zsh || true
+RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | zsh || true && \
+    sed -i '1iDISABLE_AUTO_UPDATE=true' ~/.zshrc
 
 # Set up notebook config
 COPY jupyter_notebook_config.py /root/.jupyter/

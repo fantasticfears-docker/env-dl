@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  0.8.0
+# VERSION:  0.9.0
 FROM fantasticfears/dlbase:1.2
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -62,6 +62,13 @@ RUN pip3 --no-cache-dir install spacy[cuda92] && \
 # Install fastai
 
 RUN pip3 --no-cache-dir install fastai
+
+# Install Nvidia APEX
+RUN cd /root && \
+    git clone https://github.com/NVIDIA/apex.git && \
+    cd apex && \
+    python3 setup.py install --cuda_ext --cpp_ext && \
+    rm -rf /root/apex
 
 # Install Gym
 # RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
