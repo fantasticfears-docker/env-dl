@@ -75,6 +75,7 @@ RUN apt-get update && \
 		python \
 		python2.7-dev \
 		swig \
+		uuid-dev \
 		python-pyglet \
 		libboost-all-dev \
 		libsdl2-dev \
