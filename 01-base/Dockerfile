@@ -98,9 +98,11 @@ RUN cd /tmp && \
 	cd Python-${PYTHON_VERSION} && \
 	./configure --enable-optimizations && \
 	make -j12 && \
-	make altinstall && \
-	update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+	make altinstall
+
+RUN cd /tmp && \
 	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
+	update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
 	rm -rf /tmp/Python-${PYTHON_VERSION}
 
