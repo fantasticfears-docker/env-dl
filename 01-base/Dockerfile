@@ -93,7 +93,7 @@ RUN apt-get update && \
 
 RUN cd /tmp && \
 	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
-	tar xf Python-${PYTHON_VERSION} && \
+	tar xf Python-${PYTHON_VERSION}.tar.xz && \
 	cd Python-${PYTHON_VERSION} && \
 	./configure --enable-optimizations && \
 	make -j12 && \
