@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  1.0.0
+# VERSION:  1.1.0
 FROM fantasticfears/dlbase:2.0
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -31,7 +31,7 @@ RUN bash /build_tf.sh
 RUN rm -rf /bazel* && rm -rf /build_tf.sh && rm -rf ~/bin
 
 # Install Torch
-RUN pip3 --no-cache-dir install torch torchvision
+RUN pip3 --no-cache-dir install torch torchvision torchbearer
 
 # Install Keras
 
