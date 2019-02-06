@@ -89,14 +89,16 @@ RUN cd /tmp && \
 	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
 	tar xf Python-${PYTHON_VERSION}.tar.xz && \
 	cd Python-${PYTHON_VERSION} && \
-	./configure --enable-optimizations && \
+	./configure --prefix=/usr/local/bin --enable-optimizations && \
 	make -j12 && \
 	make altinstall
 
 RUN cd /tmp && \
 	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
 	update-alternatives --install /usr/bin/python python /usr/local/bin/python3.7 1 && \
+	update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.7 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.7 1 && \
+   update-alternatives --install /usr/bin/pip3 pip3 /usr/local/bin/pip3.7 1 && \
 	rm -rf /tmp/Python-${PYTHON_VERSION}
 
 # Add SNI support to Python
