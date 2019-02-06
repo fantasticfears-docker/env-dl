@@ -30,6 +30,7 @@ RUN apt-get update && \
 		zsh \
 		autojump \
 		clang \
+		valgrind \
 		autoconf \
 		automake \
 		autotools-dev \
@@ -55,6 +56,7 @@ RUN apt-get update && \
 		cmake \
 		curl \
 		g++ \
+		gdb \
 		libjemalloc1 \
 		zlib1g-dev \
 		libffi-dev \
