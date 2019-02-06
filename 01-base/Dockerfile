@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  1.2.0
+# VERSION:  2.0.0
 FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -14,6 +14,15 @@ ENV LC_ALL en_US.UTF-8
 RUN echo "Europe/Stockholm" > /etc/timezone
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
+# Install new CLI tools
+ARG PYTHON_VERSION=3.7.2
+ARG BAT_VERSION=0.9.0
+ARG PRETTY_PING_VERSION=1.0.1
+ARG FZF_VERSION=0.17.5
+ARG DIFF_SO_FANCY_VERSION=1.2.0
+ARG FD_VERSION=7.2.0
+ARG NODE_VERSION=11
+
 # Install some dependencies
 RUN apt-get update && \
 	apt-get install -y software-properties-common \
@@ -24,8 +33,20 @@ RUN apt-get update && \
 		autoconf \
 		automake \
 		autotools-dev \
-		python3-dev \
 		libtool \
+		libssl-dev \
+		zlib1g-dev \
+		libncurses5-dev \
+		libncursesw5-dev \
+		libreadline-dev \
+		libsqlite3-dev \
+		libgdbm-dev \
+		libdb5.3-dev \
+		libbz2-dev \
+		libexpat1-dev \
+		liblzma-dev \
+		tk-dev \
+		libffi-dev \
 		make \
 		zsh-syntax-highlighting \
 		openjdk-8-jdk \
@@ -35,7 +56,6 @@ RUN apt-get update && \
 		curl \
 		g++ \
 		libjemalloc1 \
-		python3-dev \
 		zlib1g-dev \
 		libffi-dev \
 		libfreetype6-dev \
@@ -53,7 +73,6 @@ RUN apt-get update && \
 		python2.7-dev \
 		swig \
 		python-pyglet \
-		python3-opengl \
 		libboost-all-dev \
 		libsdl2-dev \
 		libosmesa6-dev \
@@ -69,7 +88,16 @@ RUN apt-get update && \
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3
+RUN cd /tmp && \
+	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
+	tar xf Python-${PYTHON_VERSION} && \
+	cd Python-${PYTHON_VERSION} && \
+	./configure --enable-optimizations && \
+	make -j12 && \
+	make altinstall && \
+	update-alternatives --config python3 && \
+	rm -rf /tmp/Python-${PYTHON_VERSION} && \
+	curl https://bootstrap.pypa.io/get-pip.py | python3
 
 # Add SNI support to Python
 # Install other useful Python packages using pip
@@ -95,15 +123,17 @@ RUN pip3 --no-cache-dir install \
 		mock \
 		sphinx \
 		wheel \
-		zmq
-
-# Install new CLI tools
-ARG BAT_VERSION=0.9.0
-ARG PRETTY_PING_VERSION=1.0.1
-ARG FZF_VERSION=0.17.5
-ARG DIFF_SO_FANCY_VERSION=1.2.0
-ARG FD_VERSION=7.2.0
-ARG NODE_VERSION=11
+		zmq \
+		PyOpenGL \
+		PyOpenGL_accelerate \
+		"PyVRML97==2.3.0a4" \
+		simpleparse \
+		"OpenGLContext==2.2.0a3" \
+		pydispatcher
+RUN pip3 --no-cache-dir install \
+	PyDispatcher \
+	PyVRML97 \
+	OpenGLContext
 
 RUN mkdir -p /root/tmp && \
 	cd /root/tmp && \
