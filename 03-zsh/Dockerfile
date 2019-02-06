@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dlzsh
-# VERSION:  0.9.0
-FROM fantasticfears/dllib-gpu:0.9
+# VERSION:  1.0.0
+FROM fantasticfears/dllib-gpu:1.0
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 

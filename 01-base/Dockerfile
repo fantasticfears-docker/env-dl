@@ -15,14 +15,7 @@ ENV LC_ALL en_US.UTF-8
 RUN echo "Europe/Stockholm" > /etc/timezone
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
-# Install new CLI tools
 ARG PYTHON_VERSION=3.7.2
-ARG BAT_VERSION=0.9.0
-ARG PRETTY_PING_VERSION=1.0.1
-ARG FZF_VERSION=0.17.5
-ARG DIFF_SO_FANCY_VERSION=1.2.0
-ARG FD_VERSION=7.2.0
-ARG NODE_VERSION=11
 
 # Install some dependencies
 RUN apt-get update && \
@@ -102,8 +95,8 @@ RUN cd /tmp && \
 
 RUN cd /tmp && \
 	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
-	update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+	update-alternatives --install /usr/bin/python python /usr/local/bin/python3.7 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.7 1 && \
 	rm -rf /tmp/Python-${PYTHON_VERSION}
 
 # Add SNI support to Python
@@ -135,12 +128,15 @@ RUN pip3 --no-cache-dir install \
 		PyOpenGL_accelerate \
 		"PyVRML97==2.3.0a4" \
 		simpleparse \
-		"OpenGLContext==2.2.0a3" \
 		pydispatcher
-RUN pip3 --no-cache-dir install \
-	PyDispatcher \
-	PyVRML97 \
-	OpenGLContext
+
+# Install new CLI tools
+ARG BAT_VERSION=0.9.0
+ARG PRETTY_PING_VERSION=1.0.1
+ARG FZF_VERSION=0.17.5
+ARG DIFF_SO_FANCY_VERSION=1.2.0
+ARG FD_VERSION=7.2.0
+ARG NODE_VERSION=11
 
 RUN mkdir -p /root/tmp && \
 	cd /root/tmp && \
@@ -163,7 +159,7 @@ RUN mkdir -p /root/tmp && \
 	curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | sudo -E bash - && \
 	apt-get update && \
 	apt-get install -y nodejs && \
-	npm install -g tldr jq && \
+	sudo npm install --unsafe-perm -g tldr jq && \
 	rm -rf /root/tmp && \
 	apt-get clean && \
 	apt-get autoremove && \
