@@ -4,10 +4,7 @@ FROM fantasticfears/dlbase:3.0
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
-ARG BAZEL_VERSION=0.17.1
-ARG TENSORFLOW_VERSION=1.12.0
-ARG TORCH_VERSION=1.0.1
-ARG PYFLAME_VERSION=1.6.7
+ARG BAZEL_VERSION=0.21.0
 
 WORKDIR /
 
@@ -18,25 +15,24 @@ RUN shasum -a 256 -c bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh.sha256
 RUN chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
 
+ARG TENSORFLOW_VERSION=1.13.0-rc0
 # Install TF dependency
 RUN pip3 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
 RUN pip3 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
 RUN pip3 --no-cache-dir install h5py==2.8.0 --no-deps
 
 # Install Tensorflow
-COPY build_tf.sh /build_tf.sh
-RUN chmod 777 /build_tf.sh
-RUN bash /build_tf.sh
+# COPY build_tf.sh /build_tf.sh
+# RUN chmod 777 /build_tf.sh
+# RUN bash /build_tf.sh
+# RUN pip3 --no-cache-dir install keras
 
-RUN rm -rf /bazel* && rm -rf /build_tf.sh && rm -rf ~/bin
-
+ARG TORCH_VERSION=1.0.1
 # Install Torch
 RUN pip3 --no-cache-dir install torch torchvision torchbearer
 
-# Install Keras
 
-RUN pip3 --no-cache-dir install keras
-
+ARG PYFLAME_VERSION=1.6.7
 # Install Pyflame
 RUN git clone https://github.com/uber/pyflame.git && \
     cd pyflame && \
