@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  2.0.0
+# VERSION:  2.0.2
 # FROM:     nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 FROM nvidia/cuda@sha256:ebd522a2c43cb56a5176dff60a993cef0c3570562e1b3aa39f6a3dfb52c30279
 
@@ -89,14 +89,17 @@ RUN cd /tmp && \
 	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
 	tar xf Python-${PYTHON_VERSION}.tar.xz && \
 	cd Python-${PYTHON_VERSION} && \
-	./configure --prefix=/usr/local/bin --enable-optimizations && \
+	./configure --prefix=/usr/local --enable-shared --enable-optimizations && \
 	make -j12 && \
 	make altinstall
 
 RUN cd /tmp && \
-	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
+        ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib/libpython3.7m.so.1.0 && \
 	update-alternatives --install /usr/bin/python python /usr/local/bin/python3.7 1 && \
 	update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.7 1 && \
+        python3 --version && \
+        ln -s /usr/share/pyshared/lsb_release.py /usr/local/lib/python3.7/site-packages/lsb_release.py && \
+	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
     update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.7 1 && \
    update-alternatives --install /usr/bin/pip3 pip3 /usr/local/bin/pip3.7 1 && \
 	rm -rf /tmp/Python-${PYTHON_VERSION}
@@ -125,12 +128,7 @@ RUN pip3 --no-cache-dir install \
 		mock \
 		sphinx \
 		wheel \
-		zmq \
-		PyOpenGL \
-		PyOpenGL_accelerate \
-		"PyVRML97==2.3.0a4" \
-		simpleparse \
-		pydispatcher
+		zmq
 
 # Install new CLI tools
 ARG BAT_VERSION=0.9.0
@@ -152,7 +150,8 @@ RUN mkdir -p /root/tmp && \
 	cd .. && \
 	curl -O -L https://github.com/junegunn/fzf/archive/${FZF_VERSION}.tar.gz && \
 	tar xzf ${FZF_VERSION}.tar.gz && \
-	./fzf-${FZF_VERSION}/install && \
+        mv fzf-${FZF_VERSION} /usr/lib/fzf && \
+	/usr/lib/fzf/install && \
 	curl -O -L https://github.com/so-fancy/diff-so-fancy/archive/v${DIFF_SO_FANCY_VERSION}.tar.gz  && \
 	tar xzf v${DIFF_SO_FANCY_VERSION}.tar.gz && \
 	cp diff-so-fancy-${DIFF_SO_FANCY_VERSION}/diff-so-fancy /usr/bin && \
