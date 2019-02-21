@@ -18,7 +18,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 ARG PYTHON_VERSION=3.7.2
 
 # Install some dependencies
-RUN apt-get update && \
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list && \
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
+    apt-get update && \
 	apt-get install -y software-properties-common \
 		zip \
 		zsh \
@@ -78,6 +80,7 @@ RUN apt-get update && \
 		xvfb \
 		htop \
 		ncdu \
+		sbt \
 		&& \
 	apt-get clean && \
 	apt-get autoremove && \
@@ -101,7 +104,7 @@ RUN cd /tmp && \
         ln -s /usr/share/pyshared/lsb_release.py /usr/local/lib/python3.7/site-packages/lsb_release.py && \
 	curl https://bootstrap.pypa.io/get-pip.py | python3 && \
     update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.7 1 && \
-   update-alternatives --install /usr/bin/pip3 pip3 /usr/local/bin/pip3.7 1 && \
+    update-alternatives --install /usr/bin/pip3 pip3 /usr/local/bin/pip3.7 1 && \
 	rm -rf /tmp/Python-${PYTHON_VERSION}
 
 # Add SNI support to Python
