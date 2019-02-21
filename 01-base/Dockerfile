@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  3.0.0
+# VERSION:  3.1.0
 # FROM:     nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 FROM nvidia/cuda@sha256:ebd522a2c43cb56a5176dff60a993cef0c3570562e1b3aa39f6a3dfb52c30279
 
