@@ -15,8 +15,6 @@ ENV LC_ALL en_US.UTF-8
 RUN echo "Europe/Stockholm" > /etc/timezone
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
-ARG PYTHON_VERSION=3.7.2
-
 # Install some dependencies
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
@@ -88,6 +86,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.lis
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 
+ARG PYTHON_VERSION=3.7.2
 RUN cd /tmp && \
 	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
 	tar xf Python-${PYTHON_VERSION}.tar.xz && \
