@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  2.0.0
-FROM fantasticfears/dlbase:3.0
+# VERSION:  2.1.0
+FROM fantasticfears/dlbase:3.1
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
@@ -22,7 +22,7 @@ RUN pip3 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
 RUN pip3 --no-cache-dir install h5py==2.8.0 --no-deps
 
 # Install Tensorflow
-# COPY build_tf.sh /build_tf.sh
+COPY build_tf.sh /build_tf.sh
 RUN chmod 777 /build_tf.sh
 RUN bash /build_tf.sh
 RUN pip3 --no-cache-dir install keras
