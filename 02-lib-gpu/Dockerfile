@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dllib-gpu
-# VERSION:  2.1.0
+# VERSION:  2.3.0
 FROM fantasticfears/dlbase:3.1
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
@@ -15,7 +15,7 @@ RUN shasum -a 256 -c bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh.sha256
 RUN chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 RUN ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
 
-ARG TENSORFLOW_VERSION=1.13.0-rc2
+ARG TENSORFLOW_VERSION=1.13.1
 # Install TF dependency
 RUN pip3 --no-cache-dir install Keras-Applications==1.0.6 --no-deps
 RUN pip3 --no-cache-dir install Keras-Preprocessing==1.0.5 --no-deps
@@ -59,11 +59,11 @@ RUN pip3 --no-cache-dir install spacy[cuda92] && \
 RUN pip3 --no-cache-dir install fastai
 
 # Install Nvidia APEX
-RUN cd /root && \
-    git clone https://github.com/NVIDIA/apex.git && \
-    cd apex && \
-    python3 setup.py install --cuda_ext --cpp_ext && \
-    rm -rf /root/apex
+# RUN cd /root && \
+#    git clone https://github.com/NVIDIA/apex.git && \
+#    cd apex && \
+#    python3 setup.py install --cuda_ext --cpp_ext && \
+#    rm -rf /root/apex
 
 # Install Gym
 # RUN wget https://www.roboti.us/download/mjpro150_linux.zip && \
