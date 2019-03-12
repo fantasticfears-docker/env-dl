@@ -263,7 +263,7 @@ run_stop() {
 
 set_volumes() {
   home_addr=`echo ~`
-  volumes="-v${home_addr}:/MIUN"
+  volumes="-v${home_addr}:/MIUN -v/captures:/data"
 }
 
 set_run_image() {
