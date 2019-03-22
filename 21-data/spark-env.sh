@@ -26,7 +26,7 @@ SPARK_MASTER_PORT=18000
 # - SPARK_WORKER_CORES, to set the number of cores to use on this machine
 SPARK_WORKER_CORES=12
 # - SPARK_WORKER_MEMORY, to set how much total memory workers have to give executors (e.g. 1000m, 2g)
-SPARK_WORKER_MEMORY=90G
+SPARK_WORKER_MEMORY=80G
 # - SPARK_WORKER_PORT / SPARK_WORKER_WEBUI_PORT, to use non-default ports for the worker
 # - SPARK_WORKER_DIR, to set the working directory of worker processes
 # - SPARK_WORKER_OPTS, to set config properties only for the worker (e.g. "-Dx=y")
