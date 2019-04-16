@@ -1,22 +1,20 @@
 # NAME:     fantasticfears/data-base
-# VERSION:  0.2.0
+# VERSION:  0.3.0
 # FROM:     phusion/baseimage:0.11
 FROM phusion/baseimage:0.11
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
-RUN apt-get update
-RUN apt-get install -y curl vim build-essential git wget locales
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+RUN apt-get update && \
+    apt-get install -y curl vim build-essential git wget locales && \
+    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-RUN echo "Europe/Stockholm" > /etc/timezone
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
-
-# Install some dependencies
-RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
+RUN echo "Europe/Stockholm" > /etc/timezone && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
+    echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
     apt-get update && \
 	apt-get install -y software-properties-common \
@@ -28,6 +26,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.lis
 		openjdk-8-jdk \
         sudo \
 		curl \
+		libicu55 \
 		unzip \
 		default-jdk \
 		python \

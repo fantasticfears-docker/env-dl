@@ -5,7 +5,7 @@ FROM fantasticfears/data-base:0.2
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 
 ENV PG_APP_HOME="/etc/docker-postgresql" \
-    PG_VERSION=11 \
+    PG_VERSION=10 \
     PG_USER=postgres \
     PG_HOME=/var/lib/postgresql \
     PG_RUNDIR=/run/postgresql \
@@ -15,9 +15,7 @@ ENV PG_APP_HOME="/etc/docker-postgresql" \
 ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \
     PG_DATADIR=${PG_HOME}/${PG_VERSION}/main
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y wget gnupg \
- && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y acl sudo \
