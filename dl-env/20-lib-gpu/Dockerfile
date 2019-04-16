@@ -27,7 +27,7 @@ RUN chmod 777 /build_tf.sh
 RUN bash /build_tf.sh
 RUN pip3 --no-cache-dir install keras
 
-ARG TORCH_VERSION=1.0.1
+# ARG TORCH_VERSION=1.0.1
 # Install Torch
 RUN pip3 --no-cache-dir install torch torchvision torchbearer
 

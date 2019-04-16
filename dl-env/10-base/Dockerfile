@@ -76,6 +76,9 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.lis
 		patchelf \
 		ffmpeg \
 		xvfb \
+		libpq-dev \
+		postgresql-client \
+		postgresql-client-common \
 		htop \
 		ncdu \
 		sbt \
@@ -112,9 +115,6 @@ RUN pip3 --no-cache-dir install \
 		numpy \
 		scipy \
 		nose \
-		libpq-dev \
-		postgresql-client \
-		postgresql-client-common \
 		h5py \
 		scikit-image \
 		matplotlib \
