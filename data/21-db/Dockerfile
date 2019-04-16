@@ -1,6 +1,6 @@
 # NAME:     fantasticfears/db
 # VERSION:  0.1.0
-FROM fantasticfears/data-base:0.2
+FROM fantasticfears/data-base:0.3
 
 MAINTAINER Erick Guan <fantasticfears@gmail.com>
 

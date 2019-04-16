@@ -12,4 +12,10 @@ services:
     privileged: true
     stdin_open: true
     tty: true
+  db:
+    image: "fantasticfears/db:latest"
+    volumes:
+      - /captures/postgres:/var/lib/postgresql
+    ports:
+      - "5432:5432"
 
