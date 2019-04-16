@@ -1,5 +1,5 @@
 # NAME:     fantasticfears/dlbase
-# VERSION:  3.1.0
+# VERSION:  3.2.0
 # FROM:     nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 FROM nvidia/cuda@sha256:ebd522a2c43cb56a5176dff60a993cef0c3570562e1b3aa39f6a3dfb52c30279
 
@@ -86,7 +86,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.lis
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	# update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
 
-ARG PYTHON_VERSION=3.7.2
+ARG PYTHON_VERSION=3.7.3
 RUN cd /tmp && \
 	curl -L -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
 	tar xf Python-${PYTHON_VERSION}.tar.xz && \
@@ -112,6 +112,9 @@ RUN pip3 --no-cache-dir install \
 		numpy \
 		scipy \
 		nose \
+		libpq-dev \
+		postgresql-client \
+		postgresql-client-common \
 		h5py \
 		scikit-image \
 		matplotlib \
